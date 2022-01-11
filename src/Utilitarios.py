@@ -48,6 +48,12 @@ class Utilitarios:
                 .replace('"', "")
                 .replace("'", "")
             )
+
+            is_url = re.match(validate_url_rgx, url)
+
+            if(not is_url.group() == url):
+                raise Exception("URL invalid")
+
             return url
         except BaseException as e:
             print(self.add_colorama(
