@@ -7,7 +7,7 @@ almacenado contará con un título, un URL, un conjunto de etiquetas y una
 fecha de creación.
 La aplicación es, en esencia, similar a servicios como Raindrop ó Pinboard.
 
-#EJEMPLOS DE USO EN LA LÍNEA DE COMANDOS
+# EJEMPLOS DE USO EN LA LÍNEA DE COMANDOS
 
 
 ## Recuperar todos los enlaces 
