@@ -1,4 +1,4 @@
-# enlacesMDP-CRUD
+# Applicacion por consola en Python-CRUD
 
 La aplicación permite almacenar enlaces a páginas web bajo una o más
 etiquetas y recuperar dichos enlaces en orden cronológico de creación, de
@@ -12,8 +12,7 @@ La aplicación es, en esencia, similar a servicios como Raindrop ó Pinboard.
 ## Agregar un enlace
 
 ```bash
-mdplinks "https://www.mdp.com.pe" --tags empresa,programacion,software
---title "Página web de MDP"
+mdplinks "https://www.mdp.com.pe" --tags empresa,programacion,software --title "Página web de MDP"
 ```
 
 ## Recuperar enlaces
@@ -23,8 +22,7 @@ mdplinks --tags empresa
 
 ## Editar un enlace
 ```bash
-mdplinks "https://www.mdp.com.pe" --tags empresa,programacion,software
---title "Página web de MDP"
+mdplinks "https://www.mdp.com.pe" --tags empresa,programacion,software --title "Página web de MDP"
 ```
 
 ### Salida:
