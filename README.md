@@ -24,7 +24,7 @@ myKey --tags empresa
 ```bash
 myKey --tags empresa -per-page 5
 ```
-* -per-page = 25 default
+* -per-page = 25 -> default
 
 ## Agregar un enlace
 
