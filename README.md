@@ -24,18 +24,20 @@ myKey --tags empresa
 ```bash
 myKey --tags empresa -per-page 5
 ```
-* -per-page = 25 -> default
+* -per-page = 25 -> default | optional
 
 ## Agregar un enlace
 
 ```bash
 myKey "https://www.mdp.com.pe" --tags empresa,programacion,software --title "Página web de MDP"
 ```
+* --title = optional
 
 ## Editar un enlace
 ```bash
 myKey "https://www.mdp.com.pe" --tags empresa,programacion,software --title "Página web de MDP"
 ```
+* --title = optional
 
 ### Salida:
 
