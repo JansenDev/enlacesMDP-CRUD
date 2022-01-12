@@ -9,20 +9,32 @@ La aplicación es, en esencia, similar a servicios como Raindrop ó Pinboard.
 
 #EJEMPLOS DE USO EN LA LÍNEA DE COMANDOS
 
+
+## Recuperar todos los enlaces 
+```bash
+myKey --tags
+```
+
+## Recuperar enlaces por tags
+```bash
+myKey --tags empresa
+```
+
+## Recuperar enlaces paginadas 
+```bash
+myKey --tags empresa -per-page 5
+```
+* -per-page = 25 default
+
 ## Agregar un enlace
 
 ```bash
-mdplinks "https://www.mdp.com.pe" --tags empresa,programacion,software --title "Página web de MDP"
-```
-
-## Recuperar enlaces
-```bash
-mdplinks --tags empresa
+myKey "https://www.mdp.com.pe" --tags empresa,programacion,software --title "Página web de MDP"
 ```
 
 ## Editar un enlace
 ```bash
-mdplinks "https://www.mdp.com.pe" --tags empresa,programacion,software --title "Página web de MDP"
+myKey "https://www.mdp.com.pe" --tags empresa,programacion,software --title "Página web de MDP"
 ```
 
 ### Salida:
