@@ -6,7 +6,7 @@ util = utils()
 
 
 def init_app():
-    action = input("Que desea hacer?\n1. Listar\n2. Guardar\n>")
+    action = input("Que desea hacer?\n1. Listar\n2. Guardar\n3. Editar\n>")
 
     if action:
         if action == "1":
@@ -15,6 +15,9 @@ def init_app():
         elif action == "2":
             guardar_link_app()
             again_menu(guardar_link_app)
+        elif action == "3":
+            guardar_link_app(replace_mode=True)
+            again_menu(lambda: guardar_link_app(True))
         else:
             print("Opcion inválida ❌")
 

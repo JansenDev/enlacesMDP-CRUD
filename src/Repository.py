@@ -1,10 +1,11 @@
-import json, sys, os
-
+import sys
+import os
 sys.path.append(
     os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir))
 )
-from src.Constants.Constantes import CARPETA_DATA_NAME
+import json
 from src.Directoriess import Directoriess
+from src.Constants.Constantes import CARPETA_DATA_NAME
 
 dir_os = Directoriess()
 
@@ -258,8 +259,49 @@ class Repository:
 
         return link_web_result
 
+    def existUrlValue_inList(self, link_web_List: str, newDict: dict, keyToFound="url"):
+
+        found = False
+        tmp_link_web_dict:dict = {}
+        new_link_web_List:list=[]
+
+        for index, link in enumerate(link_web_List):
+
+            if(link[keyToFound] == newDict[keyToFound]):
+
+                if('title' in newDict):
+                    if(newDict['title'].strip() == ""):
+                        del link['title']
+
+                    # link['title'] = newDict['title']
+                    tmp_link_web_dict['title']= newDict['title'].strip()
+
+                tmp_link_web_dict['url'] = link['url']
+                tmp_link_web_dict['tags'] = newDict['tags']
+                tmp_link_web_dict['created_at'] = link['created_at']
+
+                # link['tags'] = newDict['tags']
+                link_web_List[index] = tmp_link_web_dict
+
+                found = True
+                # tmp_link_web = link
+                new_link_web_List=link_web_List
+                break
+
+        return found, tmp_link_web_dict, new_link_web_List
+
 
 # data = Repository().listarDATA("juan")
+# # print(data)
+# item = data[-1]
+# item['title']="cambiado perrro"
+
+# found = Repository().existUrlValue_inList(data, item)
+
+
+# # print(data)
+# print(found)
+
 
 # x = Repository().filter_byTags(
 #     data,
@@ -270,7 +312,6 @@ class Repository:
 # )
 # print(x)
 # print("ab" in ["ab", "b"])
-
 
 
 # data = Repository().listarDATA("juan")

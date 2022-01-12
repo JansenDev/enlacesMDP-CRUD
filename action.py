@@ -9,35 +9,71 @@ dir_os = Directoriess()
 repository = Repository()
 util = Util()
 
+SAVE_LINK_TEXT_OUTPUT = "\nAgregar un enlace:\nExample: myKey 'https://www.google.com' --tags param1,param2,paramN  --title  'My Title Web'\n-> "
+EDIT_LINK_TEXT_OUTPUT = "\nEditar un enlace:\nExample: myKey 'https://www.google.com' --tags param1,param2,paramN  --title  'My Title Web'\n-> "
+LIST_LINK_TEXT_OUTPUT = "\nRecuperar enlaces:myKey --tags tag1,tag2 --per-page 4\n-> "
 
-def guardar_link_app():
+def guardar_link_app(replace_mode:bool=False) -> bool:
     try:
-        link_input: str = input(
-            "Agregar un enlace:\nExample: myKey 'https://www.google.com' --tags param1,param2,paramN  --title  'My Title Web'\n-> "
-        )
+        TEXT_OUPUT = SAVE_LINK_TEXT_OUTPUT if not replace_mode else EDIT_LINK_TEXT_OUTPUT
+
+        link_input: str = input(TEXT_OUPUT)
+
         util.clean_console()
         link_input_formated_toDict = Linkweb().to_Key_JSON(link_input)
 
         if link_input_formated_toDict != {}:
-
+            result_dict: dict = link_input_formated_toDict["result"]
+            url_input: str = link_input_formated_toDict["result"]['url']
             key_hash = util.to_hash_256(link_input_formated_toDict["key"])
 
             data_linkList = repository.listarDATA(key_hash)
-            data_linkList.append(link_input_formated_toDict["result"])
+
+            # ^replace_mode: If url exist in db = Exception and replace_mode = True
+
+            status, new_dataLink_dict, new_dataLink_list = repository.existUrlValue_inList(
+                data_linkList, result_dict)
+
+            if(replace_mode):
+
+                if not status:
+                    raise Exception(f"URL: '{ url_input }' no encontrada")
+
+                is_success = repository.guardarData(
+                    key_hash, new_dataLink_list)
+
+                if(is_success):
+                    print(Fore.GREEN + "\n*Editado con éxito ✅"+Fore.WHITE)
+
+                return True
+
+            if status and not replace_mode:
+                raise Exception(f"Url: '{url_input}' exist!.")
+            # ^replace_mode END
+
+            data_linkList.append(result_dict)
 
             is_success = repository.guardarData(key_hash, data_linkList)
 
             if(is_success):
-                print(Fore.GREEN +"\n*Guardado con éxito ✅"+Fore.WHITE)
+                print(Fore.GREEN + "\n*Guardado con éxito ✅"+Fore.WHITE)
+                return True
 
+        return False
     except Exception as e:
-        print(e)
+        print(Fore.RED + f"\n*{e}"+Fore.WHITE)
+        # print(e)
+
 
 
 def listar_link_app():
     try:
 
-        link_input = input("Recuperar enlaces:\n-> ")
+        link_input = input(LIST_LINK_TEXT_OUTPUT)
+
+        if link_input == "q" or link_input == "Q" or link_input.strip() == "":
+            util.clean_console()
+            raise Exception("")
 
         key_tags_tuple = util.get_key_And_tags_ofString(link_input)
 
@@ -79,6 +115,7 @@ def listar_link_app():
 
                 if key_pressed == "q" or key_pressed == "Q":
                     keyboard = False
+                    util.clean_console()
                     break
 
                 data_Result = repository.filter_byTags(
@@ -101,3 +138,6 @@ def listar_link_app():
 
     except Exception as e:
         print(e)
+
+
+# guardar_link_app(True)

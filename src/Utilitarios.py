@@ -21,7 +21,7 @@ tags_rgx = r"(?<=(\s--tags))\s{1,}([\w,]+)\s"
 title_rgx = r"(?<=--title)\s+(\"|\').+(\"|\')"
 
 # * https://www.geeksforgeeks.org | www.google.com
-validate_url_rgx  = "((http|https)://)?(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)"
+validate_url_rgx = "((http|https)://)?(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)"
 
 
 class Utilitarios:
@@ -89,14 +89,14 @@ class Utilitarios:
             if(title == " "):
                 return None
 
-            return title
+            return title.strip()
         except BaseException:
             pass
 
     def clean_console(self):
         os.system("cls")
 
-    def to_hash_256(self, text: str):
+    def to_hash_256(self, text: str) -> str:
         text = text.strip().encode("utf-8")
         hash_result = hashlib.sha256(text).hexdigest()
         return hash_result
@@ -217,10 +217,10 @@ class Utilitarios:
     def bar_template(self, n: int = 50):
         return "-" * n
 
-    def page_bar_template(self, n: str, prefix: str = "Página"):
+    def page_bar_template(self, n: str, prefix: str = "Página") -> None:
         print(Fore.YELLOW+"\n"+"*"*20+f"{prefix} {str(n)}"+"*"*20+Fore.WHITE)
 
-    def pretty_print_dict(self, dictI: dict):
+    def pretty_print_dict(self, dictI: dict) -> None:
         print("")
         for key, value in dictI.items():
 
@@ -250,7 +250,7 @@ class Utilitarios:
             print("-" * 50)
             self.pretty_print_dict(dictI)
 
-    def add_colorama(self, text: str, color_start: AnsiFore = Fore.WHITE, color_end: AnsiFore = Fore.WHITE, prefix="", sufix=""):
+    def add_colorama(self, text: str, color_start: AnsiFore = Fore.WHITE, color_end: AnsiFore = Fore.WHITE, prefix="", sufix="") -> str:
         text_acum: str = ""
         text_acum: str = f"{prefix}"+color_start+f"{text}"+color_end+f"{sufix}"
         return text_acum
